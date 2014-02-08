@@ -1,0 +1,83 @@
+<html>
+<head>
+  <script src="poker.js"></script>
+</head>
+<body>
+  <div id="hand"></div>
+  <br>
+  <div id="hand1"></div>
+  <table>
+    <tr><th>Hand</th><th>Count</th></tr>
+    <tr><td>Four of a kind</td><td id="t1"></td></tr>
+    <tr><td>Straight Flush</td><td id="t2"></td></tr>
+    <tr><td>Full House</td><td id="t3"></td></tr>
+    <tr><td>Flush</td><td id="t4"></td></tr>
+    <tr><td>Straight</td><td id="t5"></td></tr>
+    <tr><td>Three of a Kind</td><td id="t6"></td></tr>
+    <tr><td>Two Pair</td><td id="t7"></td></tr>
+    <tr><td>Pair</td><td id="t8"></td></tr>
+    <tr><td>Nothing</td><td id="t9"></td></tr>
+  </table>
+</body>
+<script>
+function shuffle(array) {
+  var currentIndex = array.length
+    , temporaryValue
+    , randomIndex
+    ;
+
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
+
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    // And swap it with the current element.
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array;
+}
+
+function shuffle_deck() {
+  var deck = [];
+  var i;
+  for (i=0; i<52; i++) {
+    deck.push(i);
+  }
+  shuffle(deck);
+  return deck;
+}
+
+var deck = shuffle_deck();
+var hand = new Hand(deck.slice(0,5));
+document.getElementById("hand").innerHTML = hand_to_text(hand);
+
+hand.pop_card();
+hand.pop_card();
+
+document.getElementById("hand1").innerHTML = hand_to_text(hand);
+
+var hand_f_list = [
+  has_four_of_a_kind,
+  has_straight_flush,
+  has_full_house,
+  has_flush,
+  has_straight,
+  has_three_of_a_kind,
+  has_two_pair,
+  has_pair,
+  has_nothing,
+];
+
+var totals = find_hand_count(hand, hand_f_list, 5, deck, 5);
+var i;
+for (i=0; i<9; i++) {
+  document.getElementById("t" + (i+1)).innerHTML = "" + totals[i];
+}
+
+</script>
+</html>

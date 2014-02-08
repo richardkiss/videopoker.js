@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>QUnit basic example</title>
+  <link rel="stylesheet" href="qunit.css">
+</head>
+<body>
+  <div id="qunit"></div>
+  <div id="qunit-fixture"></div>
+  <script src="qunit.js"></script>
+  <script src="poker.js"></script>
+  <script>
+  test( "four of a kind test", function() {
+    var h = new Hand([0, 13, 26, 39, 4])
+    deepEqual(hand_to_text(h), 'AS AD AH AC 5S');
+    deepEqual(has_four_of_a_kind(h), [13, 4]);
+    deepEqual(has_straight_flush(h), undefined);
+    deepEqual(has_full_house(h), undefined);
+    deepEqual(has_flush(h), undefined);
+    deepEqual(has_straight(h), undefined);
+    deepEqual(has_three_of_a_kind(h), undefined);
+    deepEqual(has_two_pair(h), undefined);
+    deepEqual(has_pair(h), undefined);
+    deepEqual(has_nothing(h), undefined);
+  });
+
+  test( "straight flush", function() {
+    var h = new Hand([0, 1, 2, 3, 4])
+    deepEqual(hand_to_text(h), 'AS 2S 3S 4S 5S');
+    deepEqual(has_four_of_a_kind(h), undefined);
+    deepEqual(has_straight_flush(h), [4, 0]);
+    deepEqual(has_full_house(h), undefined);
+    deepEqual(has_flush(h), new Uint8Array([13, 4, 3, 2, 1]));
+    deepEqual(has_straight(h), [4]);
+    deepEqual(has_three_of_a_kind(h), undefined);
+    deepEqual(has_two_pair(h), undefined);
+    deepEqual(has_pair(h), undefined);
+    deepEqual(has_nothing(h), new Uint8Array([13, 4, 3, 2, 1]));
+  });
+
+  test( "full house test 1", function() {
+    var h = new Hand([7, 20, 46, 9, 48])
+    deepEqual(hand_to_text(h), '8S 8D 8C 10S 10C');
+    deepEqual(has_four_of_a_kind(h), undefined);
+    deepEqual(has_straight_flush(h), undefined);
+    deepEqual(has_full_house(h), [7, 9]);
+    deepEqual(has_flush(h), undefined);
+    deepEqual(has_straight(h), undefined);
+    deepEqual(has_three_of_a_kind(h), undefined);
+    deepEqual(has_two_pair(h), undefined);
+    deepEqual(has_pair(h), undefined);
+    deepEqual(has_nothing(h), undefined);
+  });
+
+  test( "full house test 2", function() {
+    var h = new Hand([7, 20, 48, 9, 35])
+    deepEqual(hand_to_text(h), '8S 8D 10C 10S 10H');
+    deepEqual(has_four_of_a_kind(h), undefined);
+    deepEqual(has_straight_flush(h), undefined);
+    deepEqual(has_full_house(h), [9, 7]);
+    deepEqual(has_flush(h), undefined);
+    deepEqual(has_straight(h), undefined);
+    deepEqual(has_three_of_a_kind(h), undefined);
+    deepEqual(has_two_pair(h), undefined);
+    deepEqual(has_pair(h), undefined);
+    deepEqual(has_nothing(h), undefined);
+  });
+
+  test( "flush test 1", function() {
+    var h = new Hand([14, 17, 18, 22, 23]);
+    deepEqual(hand_to_text(h), '2D 5D 6D 10D JD');
+    deepEqual(has_four_of_a_kind(h), undefined);
+    deepEqual(has_straight_flush(h), undefined);
+    deepEqual(has_full_house(h), undefined);
+    deepEqual(has_flush(h), new Uint8Array([10, 9, 5, 4, 1]));
+    deepEqual(has_straight(h), undefined);
+    deepEqual(has_three_of_a_kind(h), undefined);
+    deepEqual(has_two_pair(h), undefined);
+    deepEqual(has_pair(h), undefined);
+    deepEqual(has_nothing(h), new Uint8Array([10, 9, 5, 4, 1]));
+  });
+
+  test( "straight 1", function() {
+    var h = new Hand([7, 8, 24, 23, 48])
+    deepEqual(hand_to_text(h), '8S 9S QD JD 10C');
+    deepEqual(has_four_of_a_kind(h), undefined);
+    deepEqual(has_straight_flush(h), undefined);
+    deepEqual(has_full_house(h), undefined);
+    deepEqual(has_flush(h), undefined);
+    deepEqual(has_straight(h), [11]);
+    deepEqual(has_three_of_a_kind(h), undefined);
+    deepEqual(has_two_pair(h), undefined);
+    deepEqual(has_pair(h), undefined);
+    deepEqual(has_nothing(h), new Uint8Array([11, 10, 9, 8, 7]));
+  });
+
+  test( "three of a kind 1", function() {
+    var h = new Hand([7, 20, 33, 43, 45]);
+    deepEqual(hand_to_text(h), '8S 8D 8H 5C 7C');
+    deepEqual(has_four_of_a_kind(h), undefined);
+    deepEqual(has_straight_flush(h), undefined);
+    deepEqual(has_full_house(h), undefined);
+    deepEqual(has_flush(h), undefined);
+    deepEqual(has_straight(h), undefined);
+    deepEqual(has_three_of_a_kind(h), [7, 6, 4]);
+    deepEqual(has_two_pair(h), undefined);
+    deepEqual(has_pair(h), undefined);
+    deepEqual(has_nothing(h), undefined);
+  });
+
+  test( "two pair 1", function() {
+    var h = new Hand([7, 4, 33, 43, 45]);
+    deepEqual(hand_to_text(h), '8S 5S 8H 5C 7C');
+    deepEqual(has_four_of_a_kind(h), undefined);
+    deepEqual(has_straight_flush(h), undefined);
+    deepEqual(has_full_house(h), undefined);
+    deepEqual(has_flush(h), undefined);
+    deepEqual(has_straight(h), undefined);
+    deepEqual(has_three_of_a_kind(h), undefined);
+    deepEqual(has_two_pair(h), [7, 4, 6]);
+    deepEqual(has_pair(h), undefined);
+    deepEqual(has_nothing(h), undefined);
+  });
+
+  test( "pair 1", function() {
+    var h = new Hand([7, 4, 33, 44, 45]);
+    deepEqual(hand_to_text(h), '8S 5S 8H 6C 7C');
+    deepEqual(has_four_of_a_kind(h), undefined);
+    deepEqual(has_straight_flush(h), undefined);
+    deepEqual(has_full_house(h), undefined);
+    deepEqual(has_flush(h), undefined);
+    deepEqual(has_straight(h), undefined);
+    deepEqual(has_three_of_a_kind(h), undefined);
+    deepEqual(has_two_pair(h), undefined);
+    deepEqual(has_pair(h), [7, 6, 5, 4]);
+    deepEqual(has_nothing(h), undefined);
+  });
+
+  test( "unknown 1", function() {
+    var h = new Hand([48, 49, 16, 40, 1]);
+    deepEqual(hand_to_text(h), '10C JC 4D 2C 2S');
+    deepEqual(has_four_of_a_kind(h), undefined);
+    deepEqual(has_straight_flush(h), undefined);
+    deepEqual(has_full_house(h), undefined);
+    deepEqual(has_flush(h), undefined);
+    deepEqual(has_straight(h), undefined);
+    deepEqual(has_three_of_a_kind(h), undefined);
+    deepEqual(has_two_pair(h), undefined);
+    deepEqual(has_pair(h), [1, 10, 9, 3]);
+    deepEqual(has_nothing(h), undefined);
+  });
+
+  test( "unknown 2", function() {
+    var h = new Hand([26, 19, 39, 27, 40]);
+    deepEqual(hand_to_text(h), 'AH 7D AC 2H 2C');
+    deepEqual(has_four_of_a_kind(h), undefined);
+    deepEqual(has_straight_flush(h), undefined);
+    deepEqual(has_full_house(h), undefined);
+    deepEqual(has_flush(h), undefined);
+    deepEqual(has_straight(h), undefined);
+    deepEqual(has_three_of_a_kind(h), undefined);
+    deepEqual(has_two_pair(h), [13, 1, 6]);
+    deepEqual(has_pair(h), undefined);
+    deepEqual(has_nothing(h), undefined);
+  });
+
+  </script>
+</body>
+</html>
