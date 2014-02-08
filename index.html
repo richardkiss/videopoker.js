@@ -8,8 +8,8 @@
   <div id="hand1"></div>
   <table>
     <tr><th>Hand</th><th>Count</th></tr>
-    <tr><td>Four of a kind</td><td id="t1"></td></tr>
-    <tr><td>Straight Flush</td><td id="t2"></td></tr>
+    <tr><td>Straight Flush</td><td id="t1"></td></tr>
+    <tr><td>Four of a kind</td><td id="t2"></td></tr>
     <tr><td>Full House</td><td id="t3"></td></tr>
     <tr><td>Flush</td><td id="t4"></td></tr>
     <tr><td>Straight</td><td id="t5"></td></tr>
@@ -53,17 +53,20 @@ function shuffle_deck() {
 }
 
 var deck = shuffle_deck();
-var hand = new Hand(deck.slice(0,5));
+var hand = new Hand(deck.slice(0, 5));
+
 document.getElementById("hand").innerHTML = hand_to_text(hand);
 
+hand.pop_card();
+hand.pop_card();
 hand.pop_card();
 hand.pop_card();
 
 document.getElementById("hand1").innerHTML = hand_to_text(hand);
 
 var hand_f_list = [
-  has_four_of_a_kind,
   has_straight_flush,
+  has_four_of_a_kind,
   has_full_house,
   has_flush,
   has_straight,

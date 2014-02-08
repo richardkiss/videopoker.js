@@ -104,20 +104,14 @@ function has_four_of_a_kind(hand) {
     for (i=13; i>0; i--) {
         idx = i % 13;
         cnt = hand.index_counts[idx];
-        if (cnt === 4) {
+        if ((cnt === 4) && (rank === undefined)) {
             rank = i;
-            break
         }
-        if ((kicker === undefined) && (cnt > 0)) {
+        else if ((kicker === undefined) && (cnt > 0)) {
             kicker = i;
         }
-    }
-    if (rank !== undefined) {
-        for (i=i-1; i>0; i--) {
-            if (hand.index_counts[i]>0) {
-                kicker = i;
-                return [rank, kicker];
-            }
+        if ((rank !== undefined) && (kicker !== undefined)) {
+            return [rank, kicker];
         }
     }
 }
@@ -192,9 +186,8 @@ function has_three_of_a_kind(hand) {
         cnt = hand.index_counts[idx];
         if ((cnt >= 3) && (rank === undefined)) {
             rank = i;
-            continue;
         }
-        if ((cnt > 0) && (kicker_count < 2)) {
+        else if ((cnt > 0) && (kicker_count < 2)) {
             kickers[kicker_count] = i;
             kicker_count++;
         }
@@ -264,9 +257,8 @@ function has_nothing(hand) {
 }
 
 function find_hand_count(hand, identifier_f, max_card_count, deck, deck_idx, totals) {
-    var totals;
     if (totals === undefined) {
-        totals = new Uint8Array(identifier_f.length);
+        totals = new Uint32Array(identifier_f.length);
     }
     var c, idx;
     var hand_name;
@@ -280,7 +272,7 @@ function find_hand_count(hand, identifier_f, max_card_count, deck, deck_idx, tot
                 return;
             }
         }
-        throw "got an exception";
+        throw "can't identify a hand: " + hand_to_text(hand);
     }
     for (idx=deck_idx;idx<deck.length;idx++) {
         c = deck[idx];

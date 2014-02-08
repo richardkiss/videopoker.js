@@ -165,6 +165,34 @@
     deepEqual(has_nothing(h), undefined);
   });
 
+  test( "unknown 3", function() {
+    var h = new Hand([3, 17, 42, 16, 29]);
+    deepEqual(hand_to_text(h), '4S 5D 4C 4D 4H');
+    deepEqual(has_four_of_a_kind(h), [3, 4]);
+    deepEqual(has_straight_flush(h), undefined);
+    deepEqual(has_full_house(h), undefined);
+    deepEqual(has_flush(h), undefined);
+    deepEqual(has_straight(h), undefined);
+    deepEqual(has_three_of_a_kind(h), undefined);
+    deepEqual(has_two_pair(h), undefined);
+    deepEqual(has_pair(h), undefined);
+    deepEqual(has_nothing(h), undefined);
+  });
+
+  test( "unknown 4", function() {
+    var h = new Hand([0, 23, 40, 1, 27]);
+    deepEqual(hand_to_text(h), 'AS JD 2C 2S 2H');
+    deepEqual(has_four_of_a_kind(h), undefined);
+    deepEqual(has_straight_flush(h), undefined);
+    deepEqual(has_full_house(h), undefined);
+    deepEqual(has_flush(h), undefined);
+    deepEqual(has_straight(h), undefined);
+    deepEqual(has_three_of_a_kind(h), [1, 13, 10]);
+    deepEqual(has_two_pair(h), undefined);
+    deepEqual(has_pair(h), undefined);
+    deepEqual(has_nothing(h), undefined);
+  });
+
   </script>
 </body>
 </html>
