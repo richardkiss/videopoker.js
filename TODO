@@ -1,0 +1,7 @@
+
+- write find_hand_count
+
+- put it in a web page
+  - show suit_counts, index_counts, card_counts values in a table
+  - allow cards to be specified
+
