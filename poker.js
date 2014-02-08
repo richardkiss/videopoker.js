@@ -63,7 +63,7 @@ function hand_to_text(hand) {
 
 function helper_has_straight(suit_array, start_index) {
     var i;
-    var check_index = 10;
+    var check_index = 9;
     while (check_index>=0) {
         for (i=0;i<5;i++) {
             if (suit_array[start_index+(i+check_index)%13] == 0) {
@@ -72,7 +72,7 @@ function helper_has_straight(suit_array, start_index) {
             }
         }
         if (i==5) {
-            return (check_index+4)%13;
+            return check_index+4;
         }
     }
 }
@@ -116,12 +116,34 @@ function has_four_of_a_kind(hand) {
     }
 }
 
+function has_royal_flush(hand) {
+    var i, j;
+    for (i=0;i<4;i++) {
+        var bi = i * 13;
+        if (hand.suit_counts[i] >= 5) {
+            if (hand.card_counts[bi] === 0) {
+                continue;
+            }
+            for (j=9; j<13; j++) {
+                if (hand.card_counts[j+bi] === 0) {
+                    break;
+                }
+            }
+            if (j===13) {
+                return [i];
+            }
+        }
+    }
+}
+
 function has_straight_flush(hand) {
     var v, i;
     for (i=0;i<4;i++) {
-        v = helper_has_straight(hand.card_counts, 13*i);
-        if (v) {
-            return [v, i];
+        if (hand.suit_counts[i] >= 5) {
+            v = helper_has_straight(hand.card_counts, 13*i);
+            if (v !== undefined) {
+                return [v, i];
+            }
         }
     }
 }
@@ -170,7 +192,7 @@ function has_straight(hand) {
     var i, v;
     for (i=0;i<4;i++) {
         v = helper_has_straight(hand.index_counts, 0);
-        if (v) {
+        if (v !== undefined) {
             return [v];
         }
     }
@@ -196,7 +218,6 @@ function has_three_of_a_kind(hand) {
         }
     }
 }
-
 
 function has_two_pair(hand) {
     var i, idx;
