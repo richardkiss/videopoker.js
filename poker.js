@@ -52,12 +52,13 @@ Hand.prototype.pop_card = function () {
     this.suit_counts[Math.floor(c/13)]--;
 }
 
+function card_to_text(card) {
+    var idx = card % 13;
+    var suit = Math.floor(card/13);
+    return ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"][idx] + "SDHC".substr(suit, 1);
+}
+
 function hand_to_text(hand) {
-    function card_to_text(card) {
-        var idx = card % 13;
-        var suit = Math.floor(card/13);
-        return ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"][idx] + "SDHC".substr(suit, 1);
-    }
     return hand.cards.map(card_to_text).join(" ");
 }
 
@@ -76,26 +77,6 @@ function helper_has_straight(suit_array, start_index) {
         }
     }
 }
-
-/*function helper_has_N_of_kind(hand, N) {
-    var i, idx;
-    var rank, cnt;
-    var kickers = new Uint8Array(5-N);
-    var kicker_count = 0;
-    for (i=13;i>0;i--) {
-        idx = i%13;
-        cnt = hand.index_counts[idx];
-        if (rank===undefined) {
-            if (hand.index_counts[idx] >= N) {
-                rank = idx;
-            }
-        }
-        if (rank!==undefined) {
-            if (cnt>0) {
-            }
-        }
-    }
-}*/
 
 function has_four_of_a_kind(hand) {
     var i, idx;
@@ -290,7 +271,7 @@ function find_hand_count(hand, identifier_f, max_card_count, deck, deck_idx, tot
             hand_name = identifier_f[idx](hand);
             if (hand_name) {
                 totals[idx]++;
-                return;
+                return totals;
             }
         }
         throw "can't identify a hand: " + hand_to_text(hand);
