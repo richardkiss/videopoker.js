@@ -1,14 +1,23 @@
 <html>
 <head>
+  <link rel="stylesheet" type="text/css" href="poker.css" media="all" />
   <script src="poker.js"></script>
 </head>
 <body>
-  <table border="1px"><tr>
-    <td><div id="card_0"></div><br><input type="checkbox" id="discard0" checked="checked"></td>
-    <td><div id="card_1"></div><br><input type="checkbox" id="discard1" checked="checked"></td>
-    <td><div id="card_2"></div><br><input type="checkbox" id="discard2" checked="checked"></td>
-    <td><div id="card_3"></div><br><input type="checkbox" id="discard3" checked="checked"></td>
-    <td><div id="card_4"></div><br><input type="checkbox" id="discard4" checked="checked"></td>
+  <table border="1px">
+    <tr>
+      <td><div id="card_0"></div></td>
+      <td><div id="card_1"></div></td>
+      <td><div id="card_2"></div></td>
+      <td><div id="card_3"></div></td>
+      <td><div id="card_4"></div></td>
+    </tr>
+    <tr>
+      <td><input type="checkbox" id="discard0" checked="checked"></td>
+      <td><input type="checkbox" id="discard1" checked="checked"></td>
+      <td><input type="checkbox" id="discard2" checked="checked"></td>
+      <td><input type="checkbox" id="discard3" checked="checked"></td>
+      <td><input type="checkbox" id="discard4" checked="checked"></td>
   </tr></table>
   <table>
     <tr><th>Hand</th><th>Value</th><th>Count</th></tr>
@@ -63,7 +72,7 @@ function show_hand(hand) {
   for (i=0; i<hand.cards.length; i++) {
     var c = hand.cards[i];
     var t = card_to_text(c);
-    document.getElementById("card_" + i).innerHTML = t;
+    document.getElementById("card_" + i).innerHTML = '<img src="/img/' + t + '.svg" class="crop" />';
   }
 }
 

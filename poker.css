@@ -1,0 +1,5 @@
+.crop {
+    width: 300px;
+    margin: -140px -100px -140px -100px;
+    overflow: hidden;
+}
