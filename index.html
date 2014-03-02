@@ -72,7 +72,7 @@ function show_hand(hand) {
   for (i=0; i<hand.cards.length; i++) {
     var c = hand.cards[i];
     var t = card_to_text(c);
-    document.getElementById("card_" + i).innerHTML = '<img src="/img/' + t + '.svg" class="crop" />';
+    document.getElementById("card_" + i).innerHTML = '<img src="./img/' + t + '.svg" class="crop" />';
   }
 }
 
