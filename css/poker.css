@@ -3,3 +3,8 @@
     margin: -140px -100px -140px -100px;
     overflow: hidden;
 }
+
+table.payouts td {
+    border: 1px black dotted;
+    text-align: right;
+}
