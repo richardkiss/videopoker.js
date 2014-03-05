@@ -135,3 +135,4 @@ function note_events() {
 
 note_events();
 show_hand(hand);
+recalculate();
