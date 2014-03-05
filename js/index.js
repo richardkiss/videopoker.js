@@ -128,8 +128,17 @@ function recalculate() {
 
 function note_events() {
   var i;
+  function make_toggle(radio_button) {
+    function f() {
+      radio_button.checked = !radio_button.checked;
+      recalculate();
+    }
+    return f;
+  }
   for (i=0;i<5;i++) {
-    document.getElementById("discard" + i).onclick = recalculate;
+    var radio_button = document.getElementById("discard" + i);
+    radio_button.onclick = recalculate;
+    Mousetrap.bind('' + (i+1), make_toggle(radio_button));
   }
 }
 
